@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build & push Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v6
         with:
           context: .
           pull: true
@@ -30,4 +30,3 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/caddy:latest
             ghcr.io/${{ github.repository_owner }}/caddy:${{ github.run_id }}
-          token: ${{ secrets.GITHUB_TOKEN }}
