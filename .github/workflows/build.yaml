@@ -37,3 +37,20 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/caddy:latest
             ghcr.io/${{ github.repository_owner }}/caddy:${{ github.run_id }}
+
+  prune-old-images:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    needs: []
+    
+    steps:
+      - name: Delete old GHCR versions
+        uses: actions/delete-package-versions@v5
+        with:
+          repository: ${{ github.repository }}
+          package-type: container
+          package-name: caddy
+          minimum-age: 10
+          exclude-tags: latest
+          minimum-versions-to-keep: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
