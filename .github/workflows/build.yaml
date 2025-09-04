@@ -47,10 +47,8 @@ jobs:
       - name: Delete old GHCR versions
         uses: actions/delete-package-versions@v5
         with:
-          repository: ${{ github.repository }}
           package-type: container
           package-name: caddy
-          minimum-age: 10
-          exclude-tags: latest
-          minimum-versions-to-keep: 1
+          ignore-versions: latest
+          min-versions-to-keep: 3
           token: ${{ secrets.GITHUB_TOKEN }}
